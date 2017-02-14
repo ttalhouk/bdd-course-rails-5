@@ -4,5 +4,5 @@ The purpose for this app is to practice testing with rails app using Rspec and C
 
 **To Do**
 
-* set up version control
 * set up test suite
+  * install Rspec and Capybara
