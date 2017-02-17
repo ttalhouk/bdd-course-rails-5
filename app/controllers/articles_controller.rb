@@ -23,8 +23,17 @@ class ArticlesController < ApplicationController
     end
   end
   def edit
+    unless @article.author == current_user
+      flash[:danger] = "You are not authorized to edit this article."
+      redirect_to root_path
+    end
   end
   def update
+    unless @article.author == current_user
+      flash[:danger] = "You are not authorized to edit this article."
+      redirect_to root_path
+    end
+
     if @article.update(article_params)
       flash[:success] = "Article has been updated successfully."
       redirect_to @article
