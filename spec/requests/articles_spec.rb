@@ -68,7 +68,7 @@ RSpec.describe "Articles", type: :request do
         delete "/articles/#{@article.id}"
       }
       it "allows user to delete their own article" do
-        expect(response.status).to eq(200)
+        expect(response.status).to eq(302)
       end
 
     end
