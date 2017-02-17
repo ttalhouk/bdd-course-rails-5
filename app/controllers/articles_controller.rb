@@ -13,7 +13,6 @@ class ArticlesController < ApplicationController
   def create
     @article = Article.new(article_params)
     @article.author = current_user
-    p @article
     if @article.save
       flash[:success] = "Article has been created."
       redirect_to articles_path
@@ -44,12 +43,17 @@ class ArticlesController < ApplicationController
   end
 
   def destroy
-    if @article.destroy
-      flash[:success] = "Article has been deleted."
+    unless @article.author == current_user
+      flash[:danger] = "You are not authorized to delete this article."
+      redirect_to root_path
     else
-      flash[:danger] = "Article could not be deleted."
+      if @article.destroy
+        flash[:success] = "Article has been deleted."
+      else
+        flash[:danger] = "Article could not be deleted."
+      end
+        redirect_to articles_path
     end
-      redirect_to articles_path
   end
 
   protected
