@@ -19,6 +19,7 @@
 </article>
 <div class="col-md-12">
   <%= form_for [@article, Comment.new],
+    remote:true,
     html:{ class: 'form-horizontal'} do |f| %>
     <% if @comment.errors.any? %>
       <div class="panel panel-danger col-md-offset-1">
@@ -59,17 +60,19 @@
 </div>
 <div class="col-md-10">
   <% unless @comments.empty? %>
+  <div id="messages">
     <% persisted_comments(@comments).each do |comment| %>
-      <div class="comment-body">
-        <%= comment.body %>
-      </div>
-      <div class="comment-time">
-        <small>
-          <%= time_ago_in_words(comment.created_at)%> ago by: <%= comment.user.email %>
-        </small>
-      </div>
-      <hr>
+    <div class="comment-body">
+      <%= comment.body %>
+    </div>
+    <div class="comment-time">
+      <small>
+        <%= time_ago_in_words(comment.created_at)%> ago by: <%= comment.user.email %>
+      </small>
+    <hr>
     <% end %>
+  </div>
+  </div>
   <% else %>
   There are no comments
   <% end %>
